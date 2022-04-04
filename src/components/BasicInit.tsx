@@ -20,7 +20,7 @@ const BasicInit = ({title, reactElement, listNumbers, fn, bool }:Props) => {
 
 	const handleClick = (e:FormElement) =>{
 		console.log(e);
-		console.log(e.target);
+		console.log(e.nativeEvent.target);
 	}
 	return (
 		<header className="App-header">
