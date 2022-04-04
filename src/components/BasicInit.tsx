@@ -11,10 +11,17 @@ type Props = {
 	bool: boolean;
 }
 
+type FormElement = React.FormEvent<HTMLButtonElement>;
+
 const BasicInit = ({title, reactElement, listNumbers, fn, bool }:Props) => {
 	const [count, setCount] = useState(0);
 
-	const [session, setSession] = useState(true)
+	const [session, setSession] = useState(true);
+
+	const handleClick = (e:FormElement) =>{
+		console.log(e);
+		console.log(e.target);
+	}
 	return (
 		<header className="App-header">
 			<div>{session ? <Login/> : <Logout/>}</div>
@@ -24,6 +31,8 @@ const BasicInit = ({title, reactElement, listNumbers, fn, bool }:Props) => {
 				<button type="button" onClick={() => setCount((count) => count + 1)}>
 					count is: {count}
 				</button>
+
+				<button onClick={handleClick}>Greet</button>
 			</p>
 			<p>{reactElement}</p>
 			<p>{listNumbers.join(", ")}</p>
