@@ -18,9 +18,10 @@ const BasicInit = ({title, reactElement, listNumbers, fn, bool }:Props) => {
 
 	const [session, setSession] = useState(true);
 
-	const handleClick = (e:FormElement) =>{
-		console.log(e);
-		console.log(e.nativeEvent.target);
+	const handleClick = (e:FormElement, msg: string) =>{
+		// console.log(e);
+		// console.log(e.nativeEvent.target);
+		console.log(msg);
 	}
 	return (
 		<header className="App-header">
@@ -32,7 +33,10 @@ const BasicInit = ({title, reactElement, listNumbers, fn, bool }:Props) => {
 					count is: {count}
 				</button>
 
-				<button onClick={handleClick}>Greet</button>
+				<button
+				    onClick={(e)=>handleClick(e,
+				    "Hello world...")}
+				>Greet</button>
 			</p>
 			<p>{reactElement}</p>
 			<p>{listNumbers.join(", ")}</p>
