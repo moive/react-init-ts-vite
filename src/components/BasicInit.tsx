@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import logo from '../logo.svg';
+import Btn from './Btn';
 import Login from './Login';
 import Logout from './Logout';
 
@@ -19,8 +20,8 @@ const BasicInit = ({title, reactElement, listNumbers, fn, bool }:Props) => {
 	const [session, setSession] = useState(true);
 
 	const handleClick = (e:FormElement, msg: string) =>{
-		// console.log(e);
-		// console.log(e.nativeEvent.target);
+		console.log(e);
+		console.log(e.nativeEvent.target);
 		console.log(msg);
 	}
 	return (
@@ -37,6 +38,8 @@ const BasicInit = ({title, reactElement, listNumbers, fn, bool }:Props) => {
 				    onClick={(e)=>handleClick(e,
 				    "Hello world...")}
 				>Greet</button>
+
+				<Btn myOnClick={(e)=>handleClick(e, "welcome...!")} />
 			</p>
 			<p>{reactElement}</p>
 			<p>{listNumbers.join(", ")}</p>
