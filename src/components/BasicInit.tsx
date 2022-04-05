@@ -3,6 +3,7 @@ import logo from '../logo.svg';
 import Btn from './Btn';
 import Login from './Login';
 import Logout from './Logout';
+import ScrollYAction from './ScrollYAction';
 
 type Props = {
 	title: JSX.Element;
@@ -19,11 +20,17 @@ const BasicInit = ({title, reactElement, listNumbers, fn, bool }:Props) => {
 
 	const [session, setSession] = useState(true);
 
+	const [visibleScroll, setVisibleScroll] = useState(false);
+
 	const handleClick = (e:FormElement, msg: string) =>{
 		console.log(e);
 		console.log(e.nativeEvent.target);
 		console.log(msg);
 	}
+
+	const playScroll = ()=>setVisibleScroll(true)
+	const removeScroll = ()=>setVisibleScroll(false)
+
 	return (
 		<header className="App-header">
 			<div>{session ? <Login/> : <Logout/>}</div>
@@ -45,6 +52,11 @@ const BasicInit = ({title, reactElement, listNumbers, fn, bool }:Props) => {
 			<p>{listNumbers.join(", ")}</p>
 			<p>{listNumbers.map(fn).join(", ")}</p>
 			<p>{bool.toString()}</p>
+			<div>
+				<button onClick={playScroll}>Play Scroll</button>
+				<button onClick={removeScroll}>Remove Scroll</button>
+			</div>
+			{ visibleScroll && <div> <ScrollYAction /></div> }
 		</header>
 	)
 }
