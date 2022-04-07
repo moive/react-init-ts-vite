@@ -44,3 +44,19 @@ button {
 p{
   margin:15px 0;
 }
+
+.bug{
+  background: #aedf78;
+}
+.water{
+  background: #43ccff;
+}
+.grass{
+  background: #00ca91;
+}
+.fire{
+  background: #e95c4d;
+}
+.normal{
+  background: #a5a5a5;
+}
