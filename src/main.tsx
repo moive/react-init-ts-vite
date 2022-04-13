@@ -5,7 +5,11 @@ import App from "./App";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Pokemons from "./Views/Pokemons";
 
-ReactDOM.render(
+import { createRoot } from "react-dom/client";
+const container = document.getElementById("root");
+const root = createRoot(container!);
+
+root.render(
 	<React.StrictMode>
 		<BrowserRouter>
 			<Routes>
@@ -13,6 +17,5 @@ ReactDOM.render(
 				<Route path="/pokemons" element={<Pokemons />} />
 			</Routes>
 		</BrowserRouter>
-	</React.StrictMode>,
-	document.getElementById("root")
+	</React.StrictMode>
 );
