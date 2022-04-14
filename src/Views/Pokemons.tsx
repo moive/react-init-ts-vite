@@ -15,26 +15,30 @@ const Pokemons = () => {
 	useEffect(() => {
 		setPokemons([]);
 		getAllPokemons("https://pokeapi.co/api/v2/pokemon/");
-		console.log(123);
 	}, []);
 
 	const getAllPokemons = async (url: any) => {
 		const res = await fetch(url);
 		const data = await res.json();
 		// console.log(data.results);
-		data.results.forEach(async (p: Required<Pokemon>) => {
-			const res = await fetch(p.url);
-			const data = await res.json();
-			let pokemon = {
-				id: data.id,
-				name: data.name,
-				avatar: data.sprites.other.dream_world.front_default,
-				types: data.types,
-				// url: "",
-			};
-			console.log(data);
-			setPokemons((pokemons) => [...pokemons, pokemon]);
-		});
+		let allPokemons = await Promise.all(
+			data.results.map((p: Required<Pokemon>) =>
+				fetch(p.url)
+					.then((res) => res.json())
+					.then((data) => {
+						// prettier-ignore
+						let pokemon = {
+							id: data.id,
+							name: data.name,
+							avatar: data.sprites.other.dream_world.front_default,
+							types: data.types,
+							// url: "",
+						};
+						return pokemon;
+					})
+			)
+		);
+		setPokemons(allPokemons);
 	};
 
 	return (
