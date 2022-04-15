@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Pokemon from "../components/Pokemons/Pokemon";
+import { useFetch } from "../hooks/useFetch";
 
 interface Pokemon {
 	id: string;
@@ -11,35 +12,37 @@ interface Pokemon {
 
 const Pokemons = () => {
 	const [pokemons, setPokemons] = useState<Pokemon[]>([]);
+	let url = "https://pokeapi.co/api/v2/pokemon/";
 
-	useEffect(() => {
-		setPokemons([]);
-		getAllPokemons("https://pokeapi.co/api/v2/pokemon/");
-	}, []);
+	let { data, isPending, error } = useFetch(url);
 
-	const getAllPokemons = async (url: any) => {
-		const res = await fetch(url);
-		const data = await res.json();
-		// console.log(data.results);
-		let allPokemons = await Promise.all(
-			data.results.map((p: Required<Pokemon>) =>
-				fetch(p.url)
-					.then((res) => res.json())
-					.then((data) => {
-						// prettier-ignore
-						let pokemon = {
-							id: data.id,
-							name: data.name,
-							avatar: data.sprites.other.dream_world.front_default,
-							types: data.types,
-							// url: "",
-						};
-						return pokemon;
-					})
-			)
-		);
-		setPokemons(allPokemons);
-	};
+	if (data != null) {
+		/* console.log("data", data.results);
+		console.log("error", error);
+		console.log("isPending", isPending); */
+
+		const load = async () => {
+			let allPokemons = await Promise.all(
+				data!.results.map((p: Required<Pokemon>) =>
+					fetch(p.url)
+						.then((res) => res.json())
+						.then((data) => {
+							// prettier-ignore
+							let pokemon = {
+								id: data.id,
+								name: data.name,
+								avatar: data.sprites.other.dream_world.front_default,
+								types: data.types,
+								// url: "",
+							};
+							return pokemon;
+						})
+				)
+			);
+			setPokemons(allPokemons);
+		};
+		load();
+	}
 
 	return (
 		<>
