@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import logo from "../../logo.svg";
 import Btn from "./Btn";
 import Clock from "./Clock";
@@ -32,32 +32,69 @@ const BasicInit = ({ title, reactElement, listNumbers, fn, bool }: Props) => {
 	const playScroll = () => setVisibleScroll(true);
 	const removeScroll = () => setVisibleScroll(false);
 
+	const refBtn = useRef<HTMLButtonElement>(null);
+	const refLogo = useRef<HTMLImageElement>(null);
+
+	const handleToggleMenu = (e: FormElement) => {
+		if (refBtn.current?.textContent?.toLowerCase() === "hide logo") {
+			refBtn.current.textContent = "Show Logo";
+			refLogo.current!.style.opacity = "0";
+		} else {
+			refBtn.current!.textContent = "Hide logo";
+			refLogo.current!.style.opacity = "1";
+		}
+	};
+
 	return (
 		<header className="App-header">
 			<div>{session ? <Login /> : <Logout />}</div>
-			<img src={logo} className="App-logo" alt="logo" />
+			<img src={logo} className="App-logo" alt="logo" ref={refLogo} />
+			<div>
+				<button
+					className="bg-indigo-500 px-10 py-2 uppercase rounded-full text-sm"
+					ref={refBtn}
+					onClick={handleToggleMenu}
+				>
+					Hide logo
+				</button>
+			</div>
 			{title}
 			<p>
 				<button
+					className="bg-red-500 px-10 py-2 uppercase rounded-full text-sm mr-4"
 					type="button"
 					onClick={() => setCount((count) => count + 1)}
 				>
 					count is: {count}
 				</button>
 
-				<button onClick={(e) => handleClick(e, "Hello world...")}>
+				<button
+					className="bg-yellow-500 px-10 py-2 uppercase rounded-full text-sm"
+					onClick={(e) => handleClick(e, "Hello world...")}
+				>
 					Greet
 				</button>
-
-				<Btn myOnClick={(e) => handleClick(e, "welcome...!")} />
+				<span className="block">
+					<Btn myOnClick={(e) => handleClick(e, "welcome...!")} />
+				</span>
 			</p>
 			<p>{reactElement}</p>
 			<p>{listNumbers.join(", ")}</p>
 			<p>{listNumbers.map(fn).join(", ")}</p>
 			<p>{bool.toString()}</p>
 			<div>
-				<button onClick={playScroll}>Play Scroll</button>
-				<button onClick={removeScroll}>Remove Scroll</button>
+				<button
+					className="bg-purple-500 px-10 py-2 uppercase rounded-full text-sm mr-4"
+					onClick={playScroll}
+				>
+					Play Scroll
+				</button>
+				<button
+					className="bg-green-800 px-10 py-2 uppercase rounded-full text-sm"
+					onClick={removeScroll}
+				>
+					Remove Scroll
+				</button>
 			</div>
 			{visibleScroll && (
 				<div>
