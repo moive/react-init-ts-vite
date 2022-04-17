@@ -7,6 +7,7 @@ import Pokemons from "./Views/Pokemons";
 
 import { createRoot } from "react-dom/client";
 import Survey from "./Views/Survey";
+import CrudApp from "./Views/CrudApp";
 const container = document.getElementById("root");
 const root = createRoot(container!);
 
@@ -14,7 +15,8 @@ root.render(
 	<React.StrictMode>
 		<BrowserRouter>
 			<Routes>
-				<Route path="/" element={<App />} />
+				<Route path="/" element={<CrudApp />} />
+				<Route path="/basic" element={<App />} />
 				<Route path="/pokemons" element={<Pokemons />} />
 				<Route path="/survey" element={<Survey />} />
 			</Routes>
