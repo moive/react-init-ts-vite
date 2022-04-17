@@ -7,6 +7,7 @@ import Logout from "./Logout";
 import ScrollYAction from "./ScrollYAction";
 
 import "./basic-sass.scss";
+import StyledComponents from "./StyledComponents";
 
 type Props = {
 	title: JSX.Element;
@@ -106,6 +107,8 @@ const BasicInit = ({ title, reactElement, listNumbers, fn, bool }: Props) => {
 			)}
 			<Clock />
 			<h3 className="bg-sass">Color Sass</h3>
+			<StyledComponents color="yellow" />
+			<StyledComponents />
 		</header>
 	);
 };
