@@ -1,14 +1,56 @@
 import { useState } from "react";
+import { TypeCrudApp } from "../../utils/TypeCrudApp";
 
-const CrudForm = () => {
-	const handleChange = () => {};
-	const handleSubmit = () => {};
-	const handleReset = () => {};
+type Props = {
+	createData: (data: TypeCrudApp) => void;
+	updateData: (data: TypeCrudApp) => void;
+	setDataToEdit: React.Dispatch<React.SetStateAction<null>>;
+	dataToEdit: null;
+};
 
-	const [form, setForm] = useState({
+type FormInput = React.ChangeEvent<HTMLInputElement>;
+type FormSubmit = React.FormEvent<HTMLFormElement>;
+
+const CrudForm = ({
+	createData,
+	updateData,
+	setDataToEdit,
+	dataToEdit,
+}: Props) => {
+	const initializeForm = {
+		id: null,
 		name: "",
 		constellation: "",
-	});
+	};
+	const [form, setForm] = useState(initializeForm);
+
+	const handleChange = (e: FormInput) => {
+		setForm({
+			...form,
+			[e.target.name]: e.target.value,
+		});
+	};
+	const handleSubmit = (e: FormSubmit) => {
+		e.preventDefault();
+
+		if (!form.name || !form.constellation) {
+			alert("Field required");
+			return;
+		}
+
+		if (form.id === null) {
+			createData(form);
+		} else {
+			updateData(form);
+		}
+
+		handleReset();
+	};
+	const handleReset = () => {
+		setForm(initializeForm);
+		setDataToEdit(null);
+	};
+
 	return (
 		<>
 			<form onSubmit={handleSubmit}>

@@ -33,16 +33,33 @@ const initDb: Array<TypeCrudApp> = [
 
 const CrudApp = () => {
 	const [db, setDb] = useState(initDb);
+	const [dataToEdit, setDataToEdit] = useState(null);
+
+	const createData = (data: TypeCrudApp) => {
+		data.id = Date.now();
+		setDb([...db, data]);
+	};
+	const updateData = (data: TypeCrudApp) => {};
+	const deleteData = (id: number) => {};
 
 	return (
 		<>
 			<h2 className="text-center text-3xl font-bold my-10">Add</h2>
 			<section className="max-w-screen-md mx-auto p-4 shadow bg-white rounded-md mt-10">
-				<CrudForm />
+				<CrudForm
+					createData={createData}
+					updateData={updateData}
+					dataToEdit={dataToEdit}
+					setDataToEdit={setDataToEdit}
+				/>
 			</section>
 			<h2 className="text-center text-3xl font-bold my-10">Data list</h2>
 			<section className="max-w-screen-md mx-auto p-4 shadow bg-white rounded-md mt-10">
-				<CrudTable items={db} />
+				<CrudTable
+					items={db}
+					setDataToEdit={setDataToEdit}
+					deleteData={deleteData}
+				/>
 			</section>
 		</>
 	);

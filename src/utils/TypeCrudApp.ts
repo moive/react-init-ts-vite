@@ -1,5 +1,5 @@
 export interface TypeCrudApp {
-    id: number;
+    id: number | null;
     name: string;
     constellation: string
 }

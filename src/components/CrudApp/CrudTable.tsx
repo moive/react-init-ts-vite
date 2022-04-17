@@ -4,6 +4,8 @@ import CrudTableRow from "./CrudTableRow";
 
 type Props = {
 	items: TypeCrudApp[];
+	setDataToEdit: React.Dispatch<React.SetStateAction<null>>;
+	deleteData: (id: number) => void;
 };
 
 const CrudTable = ({ items }: Props) => {
