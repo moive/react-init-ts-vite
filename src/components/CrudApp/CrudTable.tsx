@@ -4,11 +4,11 @@ import CrudTableRow from "./CrudTableRow";
 
 type Props = {
 	items: TypeCrudApp[];
-	setDataToEdit: React.Dispatch<React.SetStateAction<null>>;
+	setDataToEdit: React.Dispatch<React.SetStateAction<TypeCrudApp | null>>;
 	deleteData: (id: number) => void;
 };
 
-const CrudTable = ({ items }: Props) => {
+const CrudTable = ({ items, setDataToEdit, deleteData }: Props) => {
 	return (
 		<>
 			<table className="table-auto border-collapse w-full">
@@ -26,7 +26,12 @@ const CrudTable = ({ items }: Props) => {
 						</tr>
 					) : (
 						items.map((item) => (
-							<CrudTableRow item={item} key={item.id} />
+							<CrudTableRow
+								setDataToEdit={setDataToEdit}
+								deleteData={deleteData}
+								item={item}
+								key={item.id}
+							/>
 						))
 					)}
 				</tbody>

@@ -1,11 +1,11 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { TypeCrudApp } from "../../utils/TypeCrudApp";
 
 type Props = {
 	createData: (data: TypeCrudApp) => void;
 	updateData: (data: TypeCrudApp) => void;
-	setDataToEdit: React.Dispatch<React.SetStateAction<null>>;
-	dataToEdit: null;
+	setDataToEdit: React.Dispatch<React.SetStateAction<TypeCrudApp | null>>;
+	dataToEdit: TypeCrudApp | null;
 };
 
 type FormInput = React.ChangeEvent<HTMLInputElement>;
@@ -17,12 +17,20 @@ const CrudForm = ({
 	setDataToEdit,
 	dataToEdit,
 }: Props) => {
-	const initializeForm = {
+	const initialForm = {
 		id: null,
 		name: "",
 		constellation: "",
 	};
-	const [form, setForm] = useState(initializeForm);
+	const [form, setForm] = useState<TypeCrudApp>(initialForm);
+
+	useEffect(() => {
+		if (dataToEdit) {
+			setForm(dataToEdit);
+		} else {
+			setForm(initialForm);
+		}
+	}, [dataToEdit]);
 
 	const handleChange = (e: FormInput) => {
 		setForm({
@@ -33,8 +41,12 @@ const CrudForm = ({
 	const handleSubmit = (e: FormSubmit) => {
 		e.preventDefault();
 
-		if (!form.name || !form.constellation) {
-			alert("Field required");
+		if (!form.name) {
+			alert("Field 'name' is required");
+			return;
+		}
+		if (!form.constellation) {
+			alert("Field 'constellation' is required");
 			return;
 		}
 
@@ -47,7 +59,7 @@ const CrudForm = ({
 		handleReset();
 	};
 	const handleReset = () => {
-		setForm(initializeForm);
+		setForm(initialForm);
 		setDataToEdit(null);
 	};
 
@@ -79,14 +91,14 @@ const CrudForm = ({
 						className="bg-green-500 hover:bg-green-400 px-10 py-2 uppercase rounded-full text-sm mr-4 text-white"
 						type="submit"
 					>
-						Send
+						{dataToEdit ? "Save Changes" : "Created"}
 					</button>
 					<button
 						className="bg-red-500 hover:bg-red-400 px-10 py-2 uppercase rounded-full text-sm mr-4 text-white"
 						type="reset"
 						onClick={handleReset}
 					>
-						Reset
+						Clear
 					</button>
 				</div>
 			</form>

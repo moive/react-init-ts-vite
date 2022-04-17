@@ -33,18 +33,26 @@ const initDb: Array<TypeCrudApp> = [
 
 const CrudApp = () => {
 	const [db, setDb] = useState(initDb);
-	const [dataToEdit, setDataToEdit] = useState(null);
+	const [dataToEdit, setDataToEdit] = useState<TypeCrudApp | null>(null);
 
-	const createData = (data: TypeCrudApp) => {
-		data.id = Date.now();
-		setDb([...db, data]);
+	const createData = (item: TypeCrudApp) => {
+		item.id = Date.now();
+		setDb([...db, item]);
 	};
-	const updateData = (data: TypeCrudApp) => {};
-	const deleteData = (id: number) => {};
+	const updateData = (item: TypeCrudApp) => {
+		let newData = db.map((el) => (el.id == item.id ? item : el));
+		setDb(newData);
+	};
+	const deleteData = (id: number) => {
+		let newData = db.filter((item) => item.id != id);
+		setDb(newData);
+	};
 
 	return (
 		<>
-			<h2 className="text-center text-3xl font-bold my-10">Add</h2>
+			<h2 className="text-center text-3xl font-bold my-10">
+				{dataToEdit ? "Edit" : "Add"}
+			</h2>
 			<section className="max-w-screen-md mx-auto p-4 shadow bg-white rounded-md mt-10">
 				<CrudForm
 					createData={createData}
