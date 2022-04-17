@@ -6,6 +6,8 @@ import Login from "./Login";
 import Logout from "./Logout";
 import ScrollYAction from "./ScrollYAction";
 
+import "./basic-sass.scss";
+
 type Props = {
 	title: JSX.Element;
 	reactElement: JSX.Element;
@@ -103,6 +105,7 @@ const BasicInit = ({ title, reactElement, listNumbers, fn, bool }: Props) => {
 				</div>
 			)}
 			<Clock />
+			<h3 className="bg-sass">Color Sass</h3>
 		</header>
 	);
 };
