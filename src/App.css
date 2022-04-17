@@ -60,3 +60,11 @@ p{
 .normal{
   background: #a5a5a5;
 }
+@media screen and (min-width:1024px) {
+.wrapper-content{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: start;
+    gap:2rem
+  }
+}

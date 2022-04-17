@@ -54,25 +54,33 @@ const CrudApp = () => {
 
 	return (
 		<>
-			<h2 className="text-center text-3xl font-bold my-10">
-				{dataToEdit ? "Edit" : "Add"}
-			</h2>
-			<section className="max-w-screen-md mx-auto p-4 shadow bg-white rounded-md mt-10">
-				<CrudForm
-					createData={createData}
-					updateData={updateData}
-					dataToEdit={dataToEdit}
-					setDataToEdit={setDataToEdit}
-				/>
-			</section>
-			<h2 className="text-center text-3xl font-bold my-10">Data list</h2>
-			<section className="max-w-screen-md mx-auto p-4 shadow bg-white rounded-md mt-10">
-				<CrudTable
-					items={db}
-					setDataToEdit={setDataToEdit}
-					deleteData={deleteData}
-				/>
-			</section>
+			<div className="wrapper-content">
+				<div>
+					<h2 className="text-center text-3xl font-bold my-10">
+						{dataToEdit ? "Edit" : "Add"}
+					</h2>
+					<section className="p-4 shadow bg-white rounded-md mt-10">
+						<CrudForm
+							createData={createData}
+							updateData={updateData}
+							dataToEdit={dataToEdit}
+							setDataToEdit={setDataToEdit}
+						/>
+					</section>
+				</div>
+				<div>
+					<h2 className="text-center text-3xl font-bold my-10">
+						Data list
+					</h2>
+					<section className="p-4 shadow bg-white rounded-md mt-10">
+						<CrudTable
+							items={db}
+							setDataToEdit={setDataToEdit}
+							deleteData={deleteData}
+						/>
+					</section>
+				</div>
+			</div>
 		</>
 	);
 };
