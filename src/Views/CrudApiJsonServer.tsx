@@ -1,11 +1,22 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import CrudForm from "../components/CrudApp/CrudForm";
 import CrudTable from "../components/CrudApp/CrudTable";
+import { helpHttp } from "../helpers/helpHttp";
 import { TypeCrudApp } from "../utils/TypeCrudApp";
 
 const CrudApiJsonServer = () => {
 	const [db, setDb] = useState<TypeCrudApp[]>([]);
 	const [dataToEdit, setDataToEdit] = useState<TypeCrudApp | null>(null);
+
+	let api = helpHttp();
+	let url = "http://localhost:5000/saintseiya";
+
+	useEffect(() => {
+		api.get(url).then((res) => {
+			if (res != undefined && !res.err) setDb(res);
+			else setDb([]);
+		});
+	}, []);
 
 	const createData = (item: TypeCrudApp) => {
 		item.id = Date.now();
@@ -26,11 +37,14 @@ const CrudApiJsonServer = () => {
 
 	return (
 		<>
+			<h2 className="text-center text-3xl font-bold my-10 uppercase">
+				Crud Api json-server
+			</h2>
 			<div className="wrapper-content">
 				<div>
-					<h2 className="text-center text-3xl font-bold my-10">
+					<h3 className="text-center text-xl font-bold">
 						{dataToEdit ? "Edit" : "Add"}
-					</h2>
+					</h3>
 					<section className="p-4 shadow bg-white rounded-md mt-10">
 						<CrudForm
 							createData={createData}
@@ -41,9 +55,7 @@ const CrudApiJsonServer = () => {
 					</section>
 				</div>
 				<div>
-					<h2 className="text-center text-3xl font-bold my-10">
-						Data list
-					</h2>
+					<h3 className="text-center text-xl font-bold">Data list</h3>
 					<section className="p-4 shadow bg-white rounded-md mt-10">
 						<CrudTable
 							items={db}

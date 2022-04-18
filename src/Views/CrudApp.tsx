@@ -54,9 +54,12 @@ const CrudApp = () => {
 
 	return (
 		<>
+			<h2 className="text-center text-3xl font-bold my-10 uppercase">
+				Crud App
+			</h2>
 			<div className="wrapper-content">
 				<div>
-					<h2 className="text-center text-3xl font-bold my-10">
+					<h2 className="text-center text-3xl font-bold">
 						{dataToEdit ? "Edit" : "Add"}
 					</h2>
 					<section className="p-4 shadow bg-white rounded-md mt-10">
@@ -69,7 +72,7 @@ const CrudApp = () => {
 					</section>
 				</div>
 				<div>
-					<h2 className="text-center text-3xl font-bold my-10">
+					<h2 className="text-center text-3xl font-bold">
 						Data list
 					</h2>
 					<section className="p-4 shadow bg-white rounded-md mt-10">
