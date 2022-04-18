@@ -18,17 +18,21 @@ const CrudApiJsonServer = () => {
 
 	useEffect(() => {
 		setLoading(true);
-		api.get(url).then((res) => {
-			// console.log(res);
-			if (res != undefined && !res.err) {
-				setDb(res);
-				setError(null);
-			} else {
-				setDb(null);
-				setError(res);
-			}
-			// console.log("db", db);
-		});
+		api.get(url)
+			.then((res) => {
+				if (res != undefined && res.name == undefined && !res.err) {
+					setDb(res);
+					setError(null);
+				} else {
+					if (res.name == "TypeError" || res.name == "AbortError") {
+						res.status = res.name;
+						res.statusText = res.message;
+					}
+					setDb(null);
+					setError(res);
+				}
+			})
+			.catch((e) => console.log("e", e));
 		setLoading(false);
 	}, []);
 

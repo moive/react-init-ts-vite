@@ -20,15 +20,16 @@ export const helpHttp = () => {
 		setTimeout(() => controller.abort(), 3000);
 
 		return fetch(endpoint, options)
-			.then((res) =>
-				res.ok
+			.then((res) => {
+				console.log("res", res);
+				return res.ok
 					? res.json()
 					: Promise.reject({
 							err: true,
 							status: res.status || "00",
 							statusText: res.statusText || "A mistake ocurred",
-					  })
-			)
+					  });
+			})
 			.catch((err) => err);
 	};
 
