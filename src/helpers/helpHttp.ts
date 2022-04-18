@@ -29,7 +29,7 @@ export const helpHttp = () => {
 							statusText: res.statusText || "A mistake ocurred",
 					  })
 			)
-			.catch((err) => console.log(err.message));
+			.catch((err) => err);
 	};
 
 	const get = (url: string, options: any = {}) => customFetch(url, options);

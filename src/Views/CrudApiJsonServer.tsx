@@ -1,35 +1,49 @@
 import React, { useEffect, useState } from "react";
 import CrudForm from "../components/CrudApp/CrudForm";
 import CrudTable from "../components/CrudApp/CrudTable";
+import Loading from "../components/Loader/Loader";
+import Message from "../components/Loader/Message";
 import { helpHttp } from "../helpers/helpHttp";
 import { TypeCrudApp } from "../utils/TypeCrudApp";
+import { TypeError } from "../utils/TypeError";
 
 const CrudApiJsonServer = () => {
-	const [db, setDb] = useState<TypeCrudApp[]>([]);
+	const [db, setDb] = useState<TypeCrudApp[] | null>(null);
 	const [dataToEdit, setDataToEdit] = useState<TypeCrudApp | null>(null);
+	const [loading, setLoading] = useState(false);
+	const [error, setError] = useState<TypeError | null>(null);
 
 	let api = helpHttp();
 	let url = "http://localhost:5000/saintseiya";
 
 	useEffect(() => {
+		setLoading(true);
 		api.get(url).then((res) => {
-			if (res != undefined && !res.err) setDb(res);
-			else setDb([]);
+			// console.log(res);
+			if (res != undefined && !res.err) {
+				setDb(res);
+				setError(null);
+			} else {
+				setDb(null);
+				setError(res);
+			}
+			// console.log("db", db);
 		});
+		setLoading(false);
 	}, []);
 
 	const createData = (item: TypeCrudApp) => {
 		item.id = Date.now();
-		setDb([...db, item]);
+		setDb([...db!, item]);
 	};
 	const updateData = (item: TypeCrudApp) => {
-		let newData = db.map((el) => (el.id == item.id ? item : el));
+		let newData = db!.map((el) => (el.id == item.id ? item : el));
 		setDb(newData);
 	};
 	const deleteData = (id: number) => {
 		let isDelete = window.confirm("Are you sure to eliminate " + id);
 		if (isDelete) {
-			let newData = db.filter((item) => item.id != id);
+			let newData = db!.filter((item) => item.id != id);
 			setDb(newData);
 		}
 		return;
@@ -57,11 +71,20 @@ const CrudApiJsonServer = () => {
 				<div>
 					<h3 className="text-center text-xl font-bold">Data list</h3>
 					<section className="p-4 shadow bg-white rounded-md mt-10">
-						<CrudTable
-							items={db}
-							setDataToEdit={setDataToEdit}
-							deleteData={deleteData}
-						/>
+						{loading && <Loading />}
+						{error && (
+							<Message
+								msg={`Error ${error.status} : ${error.statusText}`}
+								bgColor="bg-red-400 text-white font-bold p-3"
+							/>
+						)}
+						{db != null && db.length > 0 && (
+							<CrudTable
+								items={db}
+								setDataToEdit={setDataToEdit}
+								deleteData={deleteData}
+							/>
+						)}
 					</section>
 				</div>
 			</div>
