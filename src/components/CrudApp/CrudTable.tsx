@@ -20,11 +20,7 @@ const CrudTable = ({ items, setDataToEdit, deleteData }: Props) => {
 					</tr>
 				</thead>
 				<tbody>
-					{items.length === 0 ? (
-						<tr>
-							<td colSpan={3}>Data not found</td>
-						</tr>
-					) : (
+					{items.length > 0 ? (
 						items.map((item) => (
 							<CrudTableRow
 								setDataToEdit={setDataToEdit}
@@ -33,6 +29,10 @@ const CrudTable = ({ items, setDataToEdit, deleteData }: Props) => {
 								key={item.id}
 							/>
 						))
+					) : (
+						<tr>
+							<td colSpan={3}>Data not found</td>
+						</tr>
 					)}
 				</tbody>
 			</table>

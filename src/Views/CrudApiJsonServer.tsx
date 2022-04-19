@@ -25,13 +25,13 @@ const CrudApiJsonServer = () => {
 					setDb(res);
 					setError(null);
 				} else {
-					setDb(null);
+					setDb([]);
 					setError(res);
 				}
 			})
-			.catch((e) => console.log(e));
-		setLoading(false);
-	}, []);
+			.catch((e) => console.log(e))
+			.finally(() => setLoading(false));
+	}, [url]);
 
 	const createData = (item: TypeCrudApp) => {
 		item.id = Date.now();
@@ -114,7 +114,7 @@ const CrudApiJsonServer = () => {
 								bgColor="bg-red-400 text-white font-bold p-3"
 							/>
 						)}
-						{db != null && db.length > 0 && (
+						{db && (
 							<CrudTable
 								items={db}
 								setDataToEdit={setDataToEdit}
