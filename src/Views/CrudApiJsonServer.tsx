@@ -20,35 +20,67 @@ const CrudApiJsonServer = () => {
 		setLoading(true);
 		api.get(url)
 			.then((res) => {
-				if (res != undefined && res.name == undefined && !res.err) {
+				console.log("res 2", res);
+				if (!res.err) {
 					setDb(res);
 					setError(null);
 				} else {
-					if (res.name == "TypeError" || res.name == "AbortError") {
-						res.status = res.name;
-						res.statusText = res.message;
-					}
 					setDb(null);
 					setError(res);
 				}
 			})
-			.catch((e) => console.log("e", e));
+			.catch((e) => console.log(e));
 		setLoading(false);
 	}, []);
 
 	const createData = (item: TypeCrudApp) => {
 		item.id = Date.now();
-		setDb([...db!, item]);
+		let options = {
+			body: item,
+			headers: { "content-type": "application/json" },
+		};
+		api.post(url, options).then((res) => {
+			if (!res.err) {
+				setDb([...db!, res]);
+			} else {
+				setError(res);
+			}
+		});
 	};
 	const updateData = (item: TypeCrudApp) => {
-		let newData = db!.map((el) => (el.id == item.id ? item : el));
-		setDb(newData);
+		let endpoint = `${url}/${item.id}`;
+
+		let options = {
+			body: item,
+			headers: { "content-type": "application/json" },
+		};
+
+		api.put(endpoint, options).then((res) => {
+			if (!res.err) {
+				let newData = db!.map((el) => (el.id == item.id ? item : el));
+				setDb(newData);
+			} else {
+				setError(res);
+			}
+		});
 	};
 	const deleteData = (id: number) => {
 		let isDelete = window.confirm("Are you sure to eliminate " + id);
+
+		let endpoint = `${url}/${id}`;
+		let options = {
+			headers: { "content-type": "application/json" },
+		};
+
 		if (isDelete) {
-			let newData = db!.filter((item) => item.id != id);
-			setDb(newData);
+			api.del(endpoint, options).then((res) => {
+				if (!res.err) {
+					let newData = db!.filter((item) => item.id != id);
+					setDb(newData);
+				} else {
+					setError(res);
+				}
+			});
 		}
 		return;
 	};

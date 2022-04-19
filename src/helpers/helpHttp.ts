@@ -1,3 +1,4 @@
+import { TypeError } from "../utils/TypeError";
 export const helpHttp = () => {
 	const customFetch = (endpoint: string, options: any) => {
 		const defaultHeader = {
@@ -16,12 +17,13 @@ export const helpHttp = () => {
 
 		if (!options.body) delete options.body;
 
-		console.log(options);
-		setTimeout(() => controller.abort(), 3000);
+		// console.log(options);
+		setTimeout(() => {
+			controller.abort();
+		}, 3000);
 
 		return fetch(endpoint, options)
 			.then((res) => {
-				console.log("res", res);
 				return res.ok
 					? res.json()
 					: Promise.reject({
@@ -30,7 +32,17 @@ export const helpHttp = () => {
 							statusText: res.statusText || "A mistake ocurred",
 					  });
 			})
-			.catch((err) => err);
+			.catch((error) => {
+				if (error.name == "TypeError" || error.name == "AbortError") {
+					let err: TypeError = {
+						err: true,
+						status: error.name,
+						statusText: error.message,
+					};
+					return err;
+				}
+				return error;
+			});
 	};
 
 	const get = (url: string, options: any = {}) => customFetch(url, options);
