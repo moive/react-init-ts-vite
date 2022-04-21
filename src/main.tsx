@@ -9,6 +9,8 @@ import { createRoot } from "react-dom/client";
 import Survey from "./Views/Survey";
 import CrudApp from "./Views/CrudApp";
 import CrudApiJsonServer from "./Views/CrudApiJsonServer";
+import SongSearch from "./Views/SongSearch";
+
 const container = document.getElementById("root");
 const root = createRoot(container!);
 
@@ -16,8 +18,12 @@ root.render(
 	<React.StrictMode>
 		<BrowserRouter>
 			<Routes>
-				<Route path="/" element={<CrudApiJsonServer />} />
+				<Route path="/" element={<SongSearch />} />
 				<Route path="/crud-app" element={<CrudApp />} />
+				<Route
+					path="/crud-api-jsonserver"
+					element={<CrudApiJsonServer />}
+				/>
 				<Route path="/basic" element={<App />} />
 				<Route path="/pokemons" element={<Pokemons />} />
 				<Route path="/survey" element={<Survey />} />
