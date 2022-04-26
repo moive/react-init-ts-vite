@@ -61,9 +61,15 @@ p{
   background: #a5a5a5;
 }
 @media screen and (min-width:1024px) {
-.wrapper-content{
+  .wrapper-content{
     display: grid;
     grid-template-columns: 1fr 1fr;
+    align-items: start;
+    gap:2rem
+  }
+  .wrapper-content-3{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
     align-items: start;
     gap:2rem
   }

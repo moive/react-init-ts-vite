@@ -30,10 +30,11 @@ const SongForm = ({ handleSearch }: Props) => {
 		}
 
 		handleSearch(form);
+		setForm(initialForm);
 	};
 
 	return (
-		<form onSubmit={onSubmit}>
+		<form onSubmit={onSubmit} className="mb-5">
 			<div>
 				<input
 					className="placeholder:italic placeholder:text-slate-400 block bg-white w-full border border-slate-300 rounded-md py-2 pl-4 pr-3 shadow-sm focus:outline-none hover:border-fuchsia-400 focus:ring-sky-500 sm:text-sm hover:text-fuchsia-500 mb-4"
