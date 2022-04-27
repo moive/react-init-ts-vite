@@ -1,5 +1,5 @@
 export interface TypeError {
 	err: boolean;
-	status: string;
+	status: string | number;
 	statusText: string;
 }
