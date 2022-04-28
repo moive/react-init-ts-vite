@@ -2,14 +2,14 @@ import React, { useEffect, useState } from "react";
 import { MyError } from "../utils/MyError";
 
 export const useFetchSelect = (url: string) => {
-	const [data, setData] = useState(null);
-	const [error, setError] = useState(null);
+	const [data, setData] = useState<any | null>(null);
+	const [error, setError] = useState<MyError | null>(null);
 	const [loading, setLoading] = useState(false);
 
 	useEffect(() => {
 		fetchData(url);
 
-		return abortController.abort();
+		// return () => abortController.abort();
 	}, [url]);
 
 	const abortController = new AbortController();
@@ -20,6 +20,7 @@ export const useFetchSelect = (url: string) => {
 
 		try {
 			const res = await fetch(url);
+
 			if (!res.ok) {
 				let err = new MyError("Error in fetch request");
 				err.status = res.status || "00";
