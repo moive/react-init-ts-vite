@@ -11,6 +11,7 @@ import CrudApp from "./Views/CrudApp";
 import CrudApiJsonServer from "./Views/CrudApiJsonServer";
 import SongSearch from "./Views/SongSearch";
 import SelectNested from "./Views/SelectNested";
+import Contact from "./Views/Contact";
 
 const container = document.getElementById("root");
 const root = createRoot(container!);
@@ -19,7 +20,8 @@ root.render(
 	<React.StrictMode>
 		<BrowserRouter>
 			<Routes>
-				<Route path="/" element={<SelectNested />} />
+				<Route path="/" element={<Contact />} />
+				<Route path="/select-nested" element={<SelectNested />} />
 				<Route path="/song-search" element={<SongSearch />} />
 				<Route path="/crud-app" element={<CrudApp />} />
 				<Route
