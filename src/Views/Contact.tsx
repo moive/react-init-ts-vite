@@ -1,4 +1,6 @@
 import React from "react";
+import Loader from "../components/Loader/Loader";
+import Message from "../components/Loader/Message";
 import { useForm } from "../hooks/useForm";
 import { TypeFormContact } from "../utils/TypeFormContact";
 
@@ -37,8 +39,15 @@ const validationsForm = (form: TypeFormContact) => {
 };
 
 const Contact = () => {
-	const { form, errors, loading, handleChange, handleBlur, handleSubmit } =
-		useForm(initialForm, validationsForm);
+	const {
+		form,
+		errors,
+		loading,
+		response,
+		handleChange,
+		handleBlur,
+		handleSubmit,
+	} = useForm(initialForm, validationsForm);
 	return (
 		<div>
 			<h2 className="text-center text-3xl font-bold my-10 uppercase">
@@ -117,6 +126,13 @@ const Contact = () => {
 				<button className="bg-fuchsia-500 text-white rounded-full px-8 py-2 text-sm font-bold uppercase disabled:opacity-50">
 					Send
 				</button>
+				{loading && <Loader />}
+				{response && (
+					<Message
+						msg="Data have been send"
+						bgColor="bg-green-400 text-white font-bold p-3 mt-5"
+					/>
+				)}
 			</form>
 		</div>
 	);
