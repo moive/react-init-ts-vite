@@ -12,6 +12,7 @@ import SongSearch from "./Views/SongSearch";
 import SelectNested from "./Views/SelectNested";
 import Contact from "./Views/Contact";
 import Modals from "./Views/Modals";
+import Error404 from "./Views/Error404";
 
 const container = document.getElementById("root");
 const root = createRoot(container!);
@@ -32,6 +33,7 @@ root.render(
 				<Route path="/basic" element={<App />} />
 				<Route path="/pokemons" element={<Pokemons />} />
 				<Route path="/survey" element={<Survey />} />
+				<Route path="*" element={<Error404 />} />
 			</Routes>
 		</BrowserRouter>
 	</React.StrictMode>
