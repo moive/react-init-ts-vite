@@ -16,6 +16,8 @@ import Error404 from "./Views/Error404";
 import Navigation from "./components/Navigation/Navigation";
 import User from "./Views/User";
 import Product from "./Views/Product";
+import ReactTopics from "./Views/ReactTopics";
+import Topic from "./Views/Topic";
 
 const container = document.getElementById("root");
 const root = createRoot(container!);
@@ -43,6 +45,9 @@ root.render(
 					path="/category"
 					element={<Navigate replace to="/product" />}
 				/>
+				<Route path="/react" element={<ReactTopics />}>
+					<Route path=":topic" element={<Topic />} />
+				</Route>
 				<Route path="*" element={<Error404 />} />
 			</Routes>
 		</BrowserRouter>
