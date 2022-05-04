@@ -14,6 +14,7 @@ import Contact from "./Views/Contact";
 import Modals from "./Views/Modals";
 import Error404 from "./Views/Error404";
 import Navigation from "./components/Navigation/Navigation";
+import User from "./Views/User";
 
 const container = document.getElementById("root");
 const root = createRoot(container!);
@@ -35,6 +36,7 @@ root.render(
 				<Route path="/basic" element={<App />} />
 				<Route path="/pokemons" element={<Pokemons />} />
 				<Route path="/survey" element={<Survey />} />
+				<Route path="/user/:username" element={<User />} />
 				<Route path="*" element={<Error404 />} />
 			</Routes>
 		</BrowserRouter>

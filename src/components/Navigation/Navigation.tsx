@@ -1,9 +1,15 @@
-import React from "react";
-import { NavLink } from "react-router-dom";
+import React, { useState } from "react";
+import { Link, NavLink } from "react-router-dom";
 
 const Navigation = () => {
+	const [showItems, setShowItems] = useState(false);
+
+	const verifyIsOpenMenuProfile = () => {
+		showItems && setShowItems(!showItems);
+	};
+
 	return (
-		<nav className="bg-gray-800">
+		<nav className="bg-gray-800" onClick={verifyIsOpenMenuProfile}>
 			<div className="max-w-7x1 mx-auto px-2 sm:px-6 lg:px-8">
 				<div className="relative flex items-center justify-between h-16">
 					<div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
@@ -134,6 +140,7 @@ const Navigation = () => {
 						<div className="ml-3 relative">
 							<div>
 								<button
+									onClick={() => setShowItems(!showItems)}
 									type="button"
 									className="bg-gray-800 flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
 									id="user-menu-button"
@@ -157,17 +164,21 @@ const Navigation = () => {
 								aria-orientation="vertical"
 								aria-labelledby="user-menu-button"
 								tabIndex={-1}
-								style={{ display: "none" }}
+								style={
+									showItems
+										? { display: "block" }
+										: { display: "none" }
+								}
 							>
-								<a
-									href="#"
+								<Link
+									to="/user/Peter"
 									className="block px-4 py-2 text-sm text-gray-700"
 									role="menuitem"
 									tabIndex={-1}
 									id="user-menu-item-0"
 								>
 									Your Profile
-								</a>
+								</Link>
 								<a
 									href="#"
 									className="block px-4 py-2 text-sm text-gray-700"
