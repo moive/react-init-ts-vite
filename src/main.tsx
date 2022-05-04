@@ -13,6 +13,7 @@ import SelectNested from "./Views/SelectNested";
 import Contact from "./Views/Contact";
 import Modals from "./Views/Modals";
 import Error404 from "./Views/Error404";
+import Navigation from "./components/Navigation/Navigation";
 
 const container = document.getElementById("root");
 const root = createRoot(container!);
@@ -20,6 +21,7 @@ const root = createRoot(container!);
 root.render(
 	<React.StrictMode>
 		<BrowserRouter>
+			<Navigation />
 			<Routes>
 				<Route path="/" element={<Modals />} />
 				<Route path="/contact" element={<Contact />} />
@@ -36,5 +38,6 @@ root.render(
 				<Route path="*" element={<Error404 />} />
 			</Routes>
 		</BrowserRouter>
+		<div>898989898</div>
 	</React.StrictMode>
 );
