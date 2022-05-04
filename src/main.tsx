@@ -46,6 +46,14 @@ root.render(
 					element={<Navigate replace to="/product" />}
 				/>
 				<Route path="/react" element={<ReactTopics />}>
+					<Route
+						index
+						element={
+							<p className="text-teal-500 uppercase font-bold">
+								Select an item
+							</p>
+						}
+					/>
 					<Route path=":topic" element={<Topic />} />
 				</Route>
 				<Route path="*" element={<Error404 />} />
