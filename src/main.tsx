@@ -1,7 +1,7 @@
 import React from "react";
 import "./index.css";
 import App from "./App";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import Pokemons from "./Views/Pokemons";
 
 import { createRoot } from "react-dom/client";
@@ -39,6 +39,10 @@ root.render(
 				<Route path="/survey" element={<Survey />} />
 				<Route path="/user/:username" element={<User />} />
 				<Route path="/product" element={<Product />} />
+				<Route
+					path="/category"
+					element={<Navigate replace to="/product" />}
+				/>
 				<Route path="*" element={<Error404 />} />
 			</Routes>
 		</BrowserRouter>
