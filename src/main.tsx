@@ -18,6 +18,9 @@ import User from "./Views/User";
 import Product from "./Views/Product";
 import ReactTopics from "./Views/ReactTopics";
 import Topic from "./Views/Topic";
+import Dashboard from "./Views/Dashboard";
+import PrivateRoute from "./components/Private/PrivateRoute";
+import Login from "./Views/Login";
 
 const container = document.getElementById("root");
 const root = createRoot(container!);
@@ -27,7 +30,7 @@ root.render(
 		<BrowserRouter>
 			<Navigation />
 			<Routes>
-				<Route path="/" element={<Modals />} />
+				<Route path="/modals" element={<Modals />} />
 				<Route path="/contact" element={<Contact />} />
 				<Route path="/select-nested" element={<SelectNested />} />
 				<Route path="/song-search" element={<SongSearch />} />
@@ -55,6 +58,10 @@ root.render(
 						}
 					/>
 					<Route path=":topic" element={<Topic />} />
+				</Route>
+				<Route path="/login" element={<Login />} />
+				<Route path="/" element={<PrivateRoute />}>
+					<Route index element={<Dashboard />} />
 				</Route>
 				<Route path="*" element={<Error404 />} />
 			</Routes>
