@@ -1,4 +1,11 @@
 import React, { useEffect, useState } from "react";
+import {
+	BrowserRouter,
+	NavLink,
+	Outlet,
+	Route,
+	Routes,
+} from "react-router-dom";
 import CrudForm from "../components/CrudApp/CrudForm";
 import CrudTable from "../components/CrudApp/CrudTable";
 import Loading from "../components/Loader/Loader";
@@ -91,6 +98,21 @@ const CrudApiJsonServer = () => {
 				Crud Api json-server
 			</h2>
 			<div className="wrapper-content">
+				{/* <BrowserRouter basename="saintseiya"> */}
+				<nav>
+					<NavLink to="/">All saint seiya</NavLink>
+					<NavLink to="/add">Add saint seiya</NavLink>
+				</nav>
+				<Routes>
+					<Route path="/" element={<h3>Home of saintseiya</h3>} />
+					<Route path="/add" element={<h3>Add saintseiya</h3>} />
+					<Route
+						path="/edit/:id"
+						element={<h3>Edit saintseiya</h3>}
+					/>
+				</Routes>
+				{/* </BrowserRouter> */}
+				<Outlet />
 				<div>
 					<h3 className="text-center text-xl font-bold">
 						{dataToEdit ? "Edit" : "Add"}
