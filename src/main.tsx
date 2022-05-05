@@ -21,6 +21,7 @@ import Topic from "./Views/Topic";
 import Dashboard from "./Views/Dashboard";
 import PrivateRoute from "./components/Private/PrivateRoute";
 import Login from "./Views/Login";
+import Footer from "./components/Footer/Footer";
 
 const container = document.getElementById("root");
 const root = createRoot(container!);
@@ -66,6 +67,6 @@ root.render(
 				<Route path="*" element={<Error404 />} />
 			</Routes>
 		</BrowserRouter>
-		<div>898989898</div>
+		<Footer />
 	</React.StrictMode>
 );
