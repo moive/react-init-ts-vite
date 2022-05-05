@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { TypeCrudApp } from "../../utils/TypeCrudApp";
 
 type Props = {
@@ -17,6 +18,7 @@ const CrudForm = ({
 	setDataToEdit,
 	dataToEdit,
 }: Props) => {
+	let navigate = useNavigate();
 	const initialForm = {
 		id: null,
 		name: "",
@@ -57,6 +59,8 @@ const CrudForm = ({
 		}
 
 		handleReset();
+
+		navigate("/crud-api-jsonserver/");
 	};
 	const handleReset = () => {
 		setForm(initialForm);

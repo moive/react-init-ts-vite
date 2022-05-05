@@ -1,5 +1,5 @@
 import React from "react";
-import { Navigate, Route, Routes } from "react-router-dom";
+import { Navigate, Outlet, Route, Routes } from "react-router-dom";
 import App from "../App";
 import PrivateRoute from "../components/Private/PrivateRoute";
 import Contact from "../Views/Contact";
@@ -26,10 +26,10 @@ const RouterNavigation = () => {
 			<Route path="/select-nested" element={<SelectNested />} />
 			<Route path="/song-search" element={<SongSearch />} />
 			<Route path="/crud-app" element={<CrudApp />} />
-			<Route
-				path="/crud-api-jsonserver"
-				element={<CrudApiJsonServer />}
-			/>
+			<Route path="/crud-api-jsonserver" element={<CrudApiJsonServer />}>
+				<Route path="add" element={<CrudApiJsonServer />} />
+				<Route path=":id/edit" element={<CrudApiJsonServer />} />
+			</Route>
 			<Route path="/basic" element={<App />} />
 			<Route path="/pokemons" element={<Pokemons />} />
 			<Route path="/survey" element={<Survey />} />

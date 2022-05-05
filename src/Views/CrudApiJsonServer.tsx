@@ -1,11 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {
-	BrowserRouter,
-	NavLink,
-	Outlet,
-	Route,
-	Routes,
-} from "react-router-dom";
+import { NavLink, Outlet, useLocation } from "react-router-dom";
 import CrudForm from "../components/CrudApp/CrudForm";
 import CrudTable from "../components/CrudApp/CrudTable";
 import Loading from "../components/Loader/Loader";
@@ -15,6 +9,10 @@ import { TypeCrudApp } from "../utils/TypeCrudApp";
 import { TypeError } from "../utils/TypeError";
 
 const CrudApiJsonServer = () => {
+	const { pathname } = useLocation();
+	let isPageAdd = pathname.includes("add") || pathname.includes("edit");
+	// console.log(isPageAdd);
+
 	const [db, setDb] = useState<TypeCrudApp[] | null>(null);
 	const [dataToEdit, setDataToEdit] = useState<TypeCrudApp | null>(null);
 	const [loading, setLoading] = useState(false);
@@ -97,54 +95,68 @@ const CrudApiJsonServer = () => {
 			<h2 className="text-center text-3xl font-bold my-10 uppercase">
 				Crud Api json-server
 			</h2>
+			<nav>
+				<NavLink
+					className={({ isActive }) =>
+						isActive
+							? "text-orange-500 font-bold uppercase mr-5"
+							: "text-blue-500 font-bold uppercase mr-5"
+					}
+					to="/crud-api-jsonserver/"
+				>
+					All
+				</NavLink>
+				<NavLink
+					className={({ isActive }) =>
+						isActive
+							? "text-orange-500 font-bold uppercase mr-5"
+							: "text-blue-500 font-bold uppercase mr-5"
+					}
+					to="/crud-api-jsonserver/add"
+				>
+					Add
+				</NavLink>
+			</nav>
+
 			<div className="wrapper-content">
-				{/* <BrowserRouter basename="saintseiya"> */}
-				<nav>
-					<NavLink to="/">All saint seiya</NavLink>
-					<NavLink to="/add">Add saint seiya</NavLink>
-				</nav>
-				<Routes>
-					<Route path="/" element={<h3>Home of saintseiya</h3>} />
-					<Route path="/add" element={<h3>Add saintseiya</h3>} />
-					<Route
-						path="/edit/:id"
-						element={<h3>Edit saintseiya</h3>}
-					/>
-				</Routes>
-				{/* </BrowserRouter> */}
-				<Outlet />
-				<div>
-					<h3 className="text-center text-xl font-bold">
-						{dataToEdit ? "Edit" : "Add"}
-					</h3>
-					<section className="p-4 shadow bg-white rounded-md mt-10">
-						<CrudForm
-							createData={createData}
-							updateData={updateData}
-							dataToEdit={dataToEdit}
-							setDataToEdit={setDataToEdit}
-						/>
-					</section>
-				</div>
-				<div>
-					<h3 className="text-center text-xl font-bold">Data list</h3>
-					<section className="p-4 shadow bg-white rounded-md mt-10">
-						{loading && <Loading />}
-						{error && (
-							<Message
-								msg={`Error ${error.status} : ${error.statusText}`}
-								bgColor="bg-red-400 text-white font-bold p-3"
-							/>
-						)}
-						{db && (
-							<CrudTable
-								items={db}
+				{isPageAdd && (
+					<div>
+						<h3 className="text-center text-xl font-bold">
+							{dataToEdit ? "Edit" : "Add"}
+						</h3>
+						<section className="p-4 shadow bg-white rounded-md mt-10">
+							<CrudForm
+								createData={createData}
+								updateData={updateData}
+								dataToEdit={dataToEdit}
 								setDataToEdit={setDataToEdit}
-								deleteData={deleteData}
 							/>
-						)}
-					</section>
-				</div>
+						</section>
+					</div>
+				)}
+				{!isPageAdd && (
+					<div>
+						<h3 className="text-center text-xl font-bold">
+							Data list
+						</h3>
+						<section className="p-4 shadow bg-white rounded-md mt-10">
+							{loading && <Loading />}
+							{error && (
+								<Message
+									msg={`Error ${error.status} : ${error.statusText}`}
+									bgColor="bg-red-400 text-white font-bold p-3"
+								/>
+							)}
+							{db && (
+								<CrudTable
+									items={db}
+									setDataToEdit={setDataToEdit}
+									deleteData={deleteData}
+								/>
+							)}
+						</section>
+					</div>
+				)}
 			</div>
 		</>
 	);
