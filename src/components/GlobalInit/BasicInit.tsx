@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useCallback, useRef, useState } from "react";
 import logo from "../../logo.svg";
 import Btn from "./Btn";
 import Clock from "./Clock";
@@ -21,10 +21,15 @@ type FormElement = React.FormEvent<HTMLButtonElement>;
 
 const BasicInit = ({ title, reactElement, listNumbers, fn, bool }: Props) => {
 	const [count, setCount] = useState(0);
+	// const handleCount = () => setCount((count) => count + 1);
+	const handleCount = useCallback(() => {
+		setCount((count) => count + 1);
+	}, [count]);
 
 	const [session, setSession] = useState(true);
 
 	const [visibleScroll, setVisibleScroll] = useState(false);
+	const [Input, setInput] = useState("23232");
 
 	const handleClick = (e: FormElement, msg: string) => {
 		console.log(e);
@@ -50,7 +55,13 @@ const BasicInit = ({ title, reactElement, listNumbers, fn, bool }: Props) => {
 
 	return (
 		<header className="App-header">
-			<div>{session ? <Login /> : <Logout />}</div>
+			<div>
+				{session ? (
+					<Login count={count} handleCount={handleCount} />
+				) : (
+					<Logout />
+				)}
+			</div>
 			<img src={logo} className="App-logo" alt="logo" ref={refLogo} />
 			<div>
 				<button
@@ -62,11 +73,19 @@ const BasicInit = ({ title, reactElement, listNumbers, fn, bool }: Props) => {
 				</button>
 			</div>
 			{title}
+			<div>
+				<input
+					onChange={(e) => setInput(e.target.value)}
+					className="text-green-500"
+					type="text"
+					value={Input}
+				/>
+			</div>
 			<p>
 				<button
 					className="bg-red-500 px-10 py-2 uppercase rounded-full text-sm mr-4"
 					type="button"
-					onClick={() => setCount((count) => count + 1)}
+					onClick={handleCount}
 				>
 					count is: {count}
 				</button>
