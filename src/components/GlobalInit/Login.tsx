@@ -1,9 +1,8 @@
-import React from 'react'
+import React, { memo } from "react";
 
 const Login = () => {
-	return (
-		<div>Login</div>
-	)
-}
+	console.log(555555);
+	return <div>Login</div>;
+};
 
-export default Login
+export default memo(Login);
