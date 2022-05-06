@@ -1,4 +1,4 @@
-import React, { Dispatch, memo, SetStateAction } from "react";
+import React, { Dispatch, memo, SetStateAction, useMemo } from "react";
 
 type Props = {
 	count: number;
@@ -6,13 +6,27 @@ type Props = {
 };
 
 const Login = ({ count, handleCount }: Props) => {
-	console.log(555555);
+	// let superNumber = 0;
+	// for (let i = 0; i < 1000000000; i++) {
+	// 	superNumber++;
+	// }
+
+	const superNumber = useMemo(() => {
+		let number = 0;
+		for (let i = 0; i < 1000000000; i++) {
+			number++;
+		}
+		return number;
+	}, []);
+
+	console.log("Render children---->");
 	return (
 		<div>
 			Login <span>{count}</span>
 			<button className="ml-4" type="button" onClick={handleCount}>
 				count +
 			</button>
+			<div>{superNumber}</div>
 		</div>
 	);
 };
