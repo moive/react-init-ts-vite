@@ -1,15 +1,33 @@
 import React, { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 
-const Navigation = () => {
+type Props = {
+	theme: string;
+	handleTheme: (theme: string) => void;
+};
+
+const Navigation = ({ theme, handleTheme }: Props) => {
 	const [showItems, setShowItems] = useState(false);
+	const [isDark, setIsDark] = useState(theme != "light" ? false : true);
+
+	const handleModeTheme = (val: boolean) => {
+		setIsDark(val);
+		if (isDark) {
+			handleTheme("dark");
+		} else {
+			handleTheme("light");
+		}
+	};
 
 	const verifyIsOpenMenuProfile = () => {
 		showItems && setShowItems(!showItems);
 	};
 
 	return (
-		<nav className="bg-gray-800" onClick={verifyIsOpenMenuProfile}>
+		<nav
+			className={theme == "dark" ? "bg-slate-900" : "bg-indigo-400"}
+			onClick={verifyIsOpenMenuProfile}
+		>
 			<div className="max-w-7x1 mx-auto px-2 sm:px-6 lg:px-8">
 				<div className="relative flex items-center justify-between h-16">
 					<div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
@@ -124,6 +142,21 @@ const Navigation = () => {
 						</div>
 					</div>
 					<div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
+						<button
+							onClick={() => handleModeTheme(!isDark)}
+							type="button"
+							className="p-1 rounded-full text-gray-400 hover:text-white focus:outline-none mt-2 mr-5"
+						>
+							{theme != "dark" ? (
+								<span className="material-icons text-gray-300">
+									dark_mode
+								</span>
+							) : (
+								<span className="material-icons text-gray-300">
+									light_mode
+								</span>
+							)}
+						</button>
 						<button
 							type="button"
 							className="bg-gray-800 p-1 rounded-full text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
