@@ -4,9 +4,18 @@ import { Link, NavLink } from "react-router-dom";
 type Props = {
 	theme: string;
 	handleTheme: (theme: string) => void;
+	texts: any;
+	handleChangeSelect: (val: string) => void;
+	language: string;
 };
 
-const Navigation = ({ theme, handleTheme }: Props) => {
+const Navigation = ({
+	theme,
+	handleTheme,
+	texts,
+	handleChangeSelect,
+	language,
+}: Props) => {
 	const [showItems, setShowItems] = useState(false);
 	const [isDark, setIsDark] = useState(theme != "light" ? false : true);
 
@@ -93,7 +102,7 @@ const Navigation = ({ theme, handleTheme }: Props) => {
 											: "text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
 									}
 								>
-									Dashboard
+									{texts.nav.Dashboard}
 								</NavLink>
 
 								<NavLink
@@ -104,7 +113,7 @@ const Navigation = ({ theme, handleTheme }: Props) => {
 											: "text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
 									}
 								>
-									Contact
+									{texts.nav.Contact}
 								</NavLink>
 
 								<NavLink
@@ -115,7 +124,7 @@ const Navigation = ({ theme, handleTheme }: Props) => {
 											: "text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
 									}
 								>
-									Select Nested
+									{texts.nav.SelectNested}
 								</NavLink>
 
 								<NavLink
@@ -126,7 +135,7 @@ const Navigation = ({ theme, handleTheme }: Props) => {
 											: "text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
 									}
 								>
-									Song Search
+									{texts.nav.SongSearch}
 								</NavLink>
 								<NavLink
 									to="/react"
@@ -142,6 +151,14 @@ const Navigation = ({ theme, handleTheme }: Props) => {
 						</div>
 					</div>
 					<div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
+						<select
+							name="language"
+							onChange={(e) => handleChangeSelect(e.target.value)}
+							value={language}
+						>
+							<option value="es">ES</option>
+							<option value="en">EN</option>
+						</select>
 						<button
 							onClick={() => handleModeTheme(!isDark)}
 							type="button"

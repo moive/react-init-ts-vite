@@ -1,8 +1,9 @@
 import React from "react";
 type Props = {
 	theme: string;
+	texts: any;
 };
-const Footer = ({ theme }: Props) => {
+const Footer = ({ theme, texts }: Props) => {
 	return (
 		<footer
 			className={`${
@@ -10,7 +11,11 @@ const Footer = ({ theme }: Props) => {
 			} text-center lg:text-left mt-auto`}
 		>
 			<div className="text-gray-700 text-center p-4">
-				© 2021 Copyright: MOIVE
+				<div>© 2021 Copyright: MOIVE</div>
+				<div>
+					<a href="/">{texts.textFooter.Privacy}</a> <span> / </span>
+					<a href="/">{texts.textFooter.TermsOfService}</a>
+				</div>
 			</div>
 		</footer>
 	);
