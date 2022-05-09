@@ -4,7 +4,7 @@ import RouterNavigation from "../../router/RouterNavigation";
 import Footer from "../Footer/Footer";
 import Navigation from "../Navigation/Navigation";
 
-const Main = () => {
+const MainContent = () => {
 	const initTheme = "dark";
 
 	const [theme, setTheme] = useState(initTheme);
@@ -22,4 +22,4 @@ const Main = () => {
 	);
 };
 
-export default Main;
+export default MainContent;
