@@ -1,32 +1,17 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
+import ThemeContext from "../../context/ThemeContext";
 
 type Props = {
-	theme: string;
-	handleTheme: (theme: string) => void;
 	texts: any;
 	handleChangeSelect: (val: string) => void;
 	language: string;
 };
 
-const Navigation = ({
-	theme,
-	handleTheme,
-	texts,
-	handleChangeSelect,
-	language,
-}: Props) => {
-	const [showItems, setShowItems] = useState(false);
-	const [isDark, setIsDark] = useState(theme != "light" ? false : true);
+const Navigation = ({ texts, handleChangeSelect, language }: Props) => {
+	const { theme, isDark, handleModeTheme } = useContext(ThemeContext);
 
-	const handleModeTheme = (val: boolean) => {
-		setIsDark(val);
-		if (isDark) {
-			handleTheme("dark");
-		} else {
-			handleTheme("light");
-		}
-	};
+	const [showItems, setShowItems] = useState(false);
 
 	const verifyIsOpenMenuProfile = () => {
 		showItems && setShowItems(!showItems);
