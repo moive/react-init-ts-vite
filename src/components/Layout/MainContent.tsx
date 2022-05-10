@@ -52,7 +52,7 @@ const MainContent = () => {
 					/>
 					<RouterNavigation />
 				</BrowserRouter>
-				{/* <Footer theme={theme} texts={texts} /> */}
+				<Footer texts={texts} />
 			</ThemeProvider>
 		</>
 	);

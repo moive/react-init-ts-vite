@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
+import ThemeContext from "../../context/ThemeContext";
 type Props = {
-	theme: string;
 	texts: any;
 };
-const Footer = ({ theme, texts }: Props) => {
+const Footer = ({ texts }: Props) => {
+	const { theme } = useContext(ThemeContext);
+
 	return (
 		<footer
 			className={`${
