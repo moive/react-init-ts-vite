@@ -1,5 +1,6 @@
 import React, { useContext, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
+import LanguageContext from "../../context/LanguageContext";
 import ThemeContext from "../../context/ThemeContext";
 
 type Props = {
@@ -8,8 +9,9 @@ type Props = {
 	language: string;
 };
 
-const Navigation = ({ texts, handleChangeSelect, language }: Props) => {
+const Navigation = () => {
 	const { theme, isDark, handleModeTheme } = useContext(ThemeContext);
+	const { language, texts, handleChangeSelect } = useContext(LanguageContext);
 
 	const [showItems, setShowItems] = useState(false);
 

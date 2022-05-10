@@ -1,10 +1,12 @@
 import React, { useContext } from "react";
+import LanguageContext from "../../context/LanguageContext";
 import ThemeContext from "../../context/ThemeContext";
 type Props = {
 	texts: any;
 };
-const Footer = ({ texts }: Props) => {
+const Footer = () => {
 	const { theme } = useContext(ThemeContext);
+	const { language, texts, handleChangeSelect } = useContext(LanguageContext);
 
 	return (
 		<footer
