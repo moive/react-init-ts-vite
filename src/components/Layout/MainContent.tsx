@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { BrowserRouter } from "react-router-dom";
+import { CrudProvider } from "../../context/CrudContext";
 import { LanguageProvider } from "../../context/LanguageContext";
 import { ThemeProvider } from "../../context/ThemeContext";
 import RouterNavigation from "../../router/RouterNavigation";
@@ -11,10 +12,12 @@ const MainContent = () => {
 		<>
 			<ThemeProvider>
 				<LanguageProvider>
-					<BrowserRouter>
-						<Navigation />
-						<RouterNavigation />
-					</BrowserRouter>
+					<CrudProvider>
+						<BrowserRouter>
+							<Navigation />
+							<RouterNavigation />
+						</BrowserRouter>
+					</CrudProvider>
 					<Footer />
 				</LanguageProvider>
 			</ThemeProvider>

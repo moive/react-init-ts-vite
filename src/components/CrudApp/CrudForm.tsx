@@ -1,5 +1,6 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import CrudContext from "../../context/CrudContext";
 import { TypeCrudApp } from "../../utils/TypeCrudApp";
 
 type Props = {
@@ -12,12 +13,9 @@ type Props = {
 type FormInput = React.ChangeEvent<HTMLInputElement>;
 type FormSubmit = React.FormEvent<HTMLFormElement>;
 
-const CrudForm = ({
-	createData,
-	updateData,
-	setDataToEdit,
-	dataToEdit,
-}: Props) => {
+const CrudForm = () => {
+	const { createData, updateData, setDataToEdit, dataToEdit } =
+		useContext(CrudContext);
 	let navigate = useNavigate();
 	const initialForm = {
 		id: null,

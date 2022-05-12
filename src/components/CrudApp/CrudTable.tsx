@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useContext } from "react";
+import CrudContext from "../../context/CrudContext";
 import { TypeCrudApp } from "../../utils/TypeCrudApp";
 import CrudTableRow from "./CrudTableRow";
 
@@ -8,7 +9,8 @@ type Props = {
 	deleteData: (id: number) => void;
 };
 
-const CrudTable = ({ items, setDataToEdit, deleteData }: Props) => {
+const CrudTable = () => {
+	const { db, setDataToEdit, deleteData } = useContext(CrudContext);
 	return (
 		<>
 			<table className="table-auto border-collapse w-full">
@@ -20,14 +22,9 @@ const CrudTable = ({ items, setDataToEdit, deleteData }: Props) => {
 					</tr>
 				</thead>
 				<tbody>
-					{items.length > 0 ? (
-						items.map((item) => (
-							<CrudTableRow
-								setDataToEdit={setDataToEdit}
-								deleteData={deleteData}
-								item={item}
-								key={item.id}
-							/>
+					{db!.length > 0 ? (
+						db!.map((item: TypeCrudApp) => (
+							<CrudTableRow item={item} key={item.id} />
 						))
 					) : (
 						<tr>

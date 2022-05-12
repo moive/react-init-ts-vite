@@ -1,13 +1,14 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import CrudContext from "../../context/CrudContext";
 import { TypeCrudApp } from "../../utils/TypeCrudApp";
 type Props = {
 	item: TypeCrudApp;
-	setDataToEdit: React.Dispatch<React.SetStateAction<TypeCrudApp | null>>;
-	deleteData: (id: number) => void;
 };
 
-const CrudTableRow = ({ item, setDataToEdit, deleteData }: Props) => {
+const CrudTableRow = ({ item }: Props) => {
+	const { setDataToEdit, deleteData } = useContext(CrudContext);
+
 	let navigate = useNavigate();
 
 	const { id, name, constellation } = item;
