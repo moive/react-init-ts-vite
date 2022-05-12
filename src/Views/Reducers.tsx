@@ -7,6 +7,7 @@ interface SelectItemState {
 type Action = {
 	type: string;
 	payload?: number;
+	isInit?: boolean;
 };
 
 enum TYPES {
@@ -17,7 +18,21 @@ enum TYPES {
 	DECREMENT_5 = "DECREMENT_5",
 }
 
-const initialState = { count: 0 };
+const initialState: SelectItemState = { count: 0 };
+
+const valueWhenIniExist = 200;
+
+const init = (initialState: SelectItemState) => ({
+	count: initialState.count + valueWhenIniExist,
+});
+
+const resetState = (isInit: boolean = false) => {
+	if (isInit) {
+		return { count: valueWhenIniExist };
+	}
+
+	return initialState;
+};
 
 function reducer(state: SelectItemState, action: Action): SelectItemState {
 	switch (action.type) {
@@ -30,7 +45,7 @@ function reducer(state: SelectItemState, action: Action): SelectItemState {
 		case TYPES.DECREMENT_5:
 			return { count: state.count - action.payload! };
 		case TYPES.RESET:
-			return initialState;
+			return resetState(action.isInit);
 		default:
 			return state;
 	}
@@ -39,7 +54,7 @@ function reducer(state: SelectItemState, action: Action): SelectItemState {
 const Reducers = () => {
 	// const [count, setCount] = useState(0);
 
-	const [state, dispatch] = useReducer(reducer, initialState);
+	const [state, dispatch] = useReducer(reducer, initialState, init);
 
 	const handleIncrement = () => dispatch({ type: TYPES.INCREMENT });
 	const handleDecrement = () => dispatch({ type: TYPES.DECREMENT });
@@ -47,7 +62,7 @@ const Reducers = () => {
 		dispatch({ type: TYPES.INCREMENT_5, payload: 5 });
 	const handleDecrement_5 = () =>
 		dispatch({ type: TYPES.DECREMENT_5, payload: 5 });
-	const handleReset = () => dispatch({ type: TYPES.RESET });
+	const handleReset = () => dispatch({ type: TYPES.RESET, isInit: true });
 
 	return (
 		<div>
