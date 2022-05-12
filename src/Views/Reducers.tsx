@@ -1,15 +1,38 @@
-import React, { useState } from "react";
+import React, { useReducer, useState } from "react";
+
+interface SelectItemState {
+	count: number;
+}
+
+type Action = {
+	type: string;
+};
+
+const initialState = { count: 0 };
+
+function reducer(state: SelectItemState, action: Action): SelectItemState {
+	switch (action.type) {
+		case "INCREMENT":
+			return { count: state.count + 1 };
+		case "DECREMENT":
+			return { count: state.count - 1 };
+		default:
+			return state;
+	}
+}
 
 const Reducers = () => {
-	const [count, setCount] = useState(0);
+	// const [count, setCount] = useState(0);
 
-	const handleIncrement = () => setCount((count) => count + 1);
-	const handleDecrement = () => setCount((count) => count - 1);
+	const [state, dispatch] = useReducer(reducer, initialState);
+
+	const handleIncrement = () => dispatch({ type: "INCREMENT" });
+	const handleDecrement = () => dispatch({ type: "DECREMENT" });
 
 	return (
 		<div>
 			<h2 className="text-center text-3xl font-bold my-10 uppercase">
-				Reducers <span>{count}</span>
+				Reducers <span>{state.count}</span>
 			</h2>
 			<div>
 				<button
