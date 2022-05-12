@@ -12,6 +12,7 @@ import Modals from "../Views/Modals";
 import Pokemons from "../Views/Pokemons";
 import Product from "../Views/Product";
 import ReactTopics from "../Views/ReactTopics";
+import Reducers from "../Views/Reducers";
 import SelectNested from "../Views/SelectNested";
 import SongSearch from "../Views/SongSearch";
 import Survey from "../Views/Survey";
@@ -21,6 +22,7 @@ import User from "../Views/User";
 const RouterNavigation = () => {
 	return (
 		<Routes>
+			<Route path="/reducers" element={<Reducers />} />
 			<Route path="/modals" element={<Modals />} />
 			<Route path="/contact" element={<Contact />} />
 			<Route path="/select-nested" element={<SelectNested />} />
