@@ -6,16 +6,31 @@ interface SelectItemState {
 
 type Action = {
 	type: string;
+	payload?: number;
 };
+
+enum TYPES {
+	INCREMENT = "INCREMENT",
+	INCREMENT_5 = "INCREMENT_5",
+	RESET = "RESET",
+	DECREMENT = "DECREMENT",
+	DECREMENT_5 = "DECREMENT_5",
+}
 
 const initialState = { count: 0 };
 
 function reducer(state: SelectItemState, action: Action): SelectItemState {
 	switch (action.type) {
-		case "INCREMENT":
+		case TYPES.INCREMENT:
 			return { count: state.count + 1 };
-		case "DECREMENT":
+		case TYPES.INCREMENT_5:
+			return { count: state.count + action.payload! };
+		case TYPES.DECREMENT:
 			return { count: state.count - 1 };
+		case TYPES.DECREMENT_5:
+			return { count: state.count - action.payload! };
+		case TYPES.RESET:
+			return initialState;
 		default:
 			return state;
 	}
@@ -26,8 +41,13 @@ const Reducers = () => {
 
 	const [state, dispatch] = useReducer(reducer, initialState);
 
-	const handleIncrement = () => dispatch({ type: "INCREMENT" });
-	const handleDecrement = () => dispatch({ type: "DECREMENT" });
+	const handleIncrement = () => dispatch({ type: TYPES.INCREMENT });
+	const handleDecrement = () => dispatch({ type: TYPES.DECREMENT });
+	const handleIncrement_5 = () =>
+		dispatch({ type: TYPES.INCREMENT_5, payload: 5 });
+	const handleDecrement_5 = () =>
+		dispatch({ type: TYPES.DECREMENT_5, payload: 5 });
+	const handleReset = () => dispatch({ type: TYPES.RESET });
 
 	return (
 		<div>
@@ -42,10 +62,28 @@ const Reducers = () => {
 					Increment
 				</button>
 				<button
+					className="bg-red-500 px-10 py-2 uppercase rounded-full text-sm text-white font-bold mr-5"
+					onClick={handleIncrement_5}
+				>
+					Increment + 5
+				</button>
+				<button
+					className="bg-gray-500 px-10 py-2 uppercase rounded-full text-sm text-white font-bold mr-5"
+					onClick={handleReset}
+				>
+					Reset
+				</button>
+				<button
 					className="bg-indigo-500 px-10 py-2 uppercase rounded-full text-sm text-white font-bold"
 					onClick={handleDecrement}
 				>
 					Increment
+				</button>
+				<button
+					className="bg-orange-500 px-10 py-2 uppercase rounded-full text-sm text-white font-bold"
+					onClick={handleDecrement_5}
+				>
+					Increment - 5
 				</button>
 			</div>
 		</div>
