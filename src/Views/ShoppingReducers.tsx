@@ -1,10 +1,10 @@
 import React from "react";
-import ShoppingCard from "../components/ShoppingCard/ShoppingCard";
+import ShoppingCart from "../components/ShoppingCard/ShoppingCart";
 
 const ShoppingReducers = () => {
 	return (
 		<>
-			<ShoppingCard />
+			<ShoppingCart />
 		</>
 	);
 };

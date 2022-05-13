@@ -24,7 +24,7 @@ const RouterNavigation = () => {
 	return (
 		<Routes>
 			<Route path="/reducers" element={<Reducers />} />
-			<Route path="/shopping-card" element={<ShoppingReducers />} />
+			<Route path="/shopping-cart" element={<ShoppingReducers />} />
 			<Route path="/modals" element={<Modals />} />
 			<Route path="/contact" element={<Contact />} />
 			<Route path="/select-nested" element={<SelectNested />} />
