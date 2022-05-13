@@ -14,6 +14,7 @@ import Product from "../Views/Product";
 import ReactTopics from "../Views/ReactTopics";
 import Reducers from "../Views/Reducers";
 import SelectNested from "../Views/SelectNested";
+import ShoppingReducers from "../Views/ShoppingReducers";
 import SongSearch from "../Views/SongSearch";
 import Survey from "../Views/Survey";
 import Topic from "../Views/Topic";
@@ -23,6 +24,7 @@ const RouterNavigation = () => {
 	return (
 		<Routes>
 			<Route path="/reducers" element={<Reducers />} />
+			<Route path="/shopping-card" element={<ShoppingReducers />} />
 			<Route path="/modals" element={<Modals />} />
 			<Route path="/contact" element={<Contact />} />
 			<Route path="/select-nested" element={<SelectNested />} />

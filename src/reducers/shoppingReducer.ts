@@ -1,7 +1,14 @@
 import { TYPES } from "../actions/shoppingActions";
 
+export interface IProduct {
+	id: number;
+	name: string;
+	price: number;
+}
+
 interface IState {
-	// count: number;
+	products: IProduct[];
+	cart: [];
 }
 
 type Action = {
@@ -10,7 +17,7 @@ type Action = {
 	isInit?: boolean;
 };
 
-export const shoppingInitialState = {
+export const shoppingInitialState: IState = {
 	products: [
 		{ id: 1, name: "Product 1", price: 100 },
 		{ id: 2, name: "Product 2", price: 200 },
