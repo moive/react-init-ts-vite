@@ -1,7 +1,8 @@
-import React, { useReducer } from "react";
+import React, { useEffect, useReducer, useState } from "react";
 import ProductItem from "./ProductItem";
 
 import {
+	IProduct,
 	shoppingInitialState,
 	shoppingReducer,
 } from "../../reducers/shoppingReducer";
@@ -9,15 +10,30 @@ import CartItem from "./CartItem";
 import { TYPES } from "../../actions/shoppingActions";
 
 const ShoppingCart = () => {
+	const [totalAmount, setTotalAmount] = useState(0);
+
 	const [state, dispatch] = useReducer(shoppingReducer, shoppingInitialState);
 
 	const { products, cart } = state;
 
+	useEffect(() => {
+		let total = cart.reduce((acc, el) => acc + el.quantity! * el.price, 0);
+		setTotalAmount(total);
+	}, [cart]);
+
 	const addToCart = (id: number) => {
-		console.log(id);
 		dispatch({ type: TYPES.ADD_TO_CART, payload: id });
 	};
-	const delFromCart = () => {};
+	const incrementFromCart = (id: number) => {
+		dispatch({ type: TYPES.INCREMENT_ONE_FROM_CART, payload: id });
+	};
+	const delFromCart = (id: number, all = false) => {
+		if (all) {
+			dispatch({ type: TYPES.REMOVE_ALL_FROM_CART, payload: id });
+		} else {
+			dispatch({ type: TYPES.DECREMENT_ONE_FROM_CART, payload: id });
+		}
+	};
 	const clearCart = () => {
 		dispatch({ type: TYPES.CLEAR_CART });
 	};
@@ -28,7 +44,7 @@ const ShoppingCart = () => {
 				Products
 			</h2>
 			<article className="flex flex-wrap justify-center">
-				{products.map((product) => (
+				{products.map((product: IProduct) => (
 					<ProductItem
 						key={product.id}
 						data={product}
@@ -42,13 +58,18 @@ const ShoppingCart = () => {
 						Your bag
 					</h3>
 					<article>
-						{cart.map((item, index) => (
+						{cart.map((item: IProduct, index: number) => (
 							<CartItem
 								key={index}
 								data={item}
 								delFromCart={delFromCart}
+								incrementFromCart={incrementFromCart}
 							/>
 						))}
+					</article>
+					<article className="flex justify-end mx-5">
+						<span className="font-bold m-5 italic">Total:</span>
+						<span className="my-5 font-bold ">{totalAmount}</span>
 					</article>
 					<div className="p-5 flex row-reverse">
 						<button

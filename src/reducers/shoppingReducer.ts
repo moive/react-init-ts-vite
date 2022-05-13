@@ -53,9 +53,45 @@ export function shoppingReducer(state: IState, action: Action) {
 						cart: [...state.cart, { ...newItem!, quantity: 1 }],
 				  };
 		}
-		case TYPES.REMOVE_ONE_FROM_CART: {
+		case TYPES.INCREMENT_ONE_FROM_CART: {
+			let itemToIncrement = state.cart.find(
+				(item) => item.id === action.payload
+			);
+
+			return {
+				...state,
+				cart: state.cart.map((item) =>
+					item.id === itemToIncrement?.id
+						? { ...item, quantity: item.quantity! + 1 }
+						: item
+				),
+			};
+		}
+		case TYPES.DECREMENT_ONE_FROM_CART: {
+			let itemToDelete = state.cart.find(
+				(item) => item.id === action.payload
+			);
+			return itemToDelete?.quantity! > 1
+				? {
+						...state,
+						cart: state.cart.map((item) =>
+							item.id === action.payload
+								? { ...item, quantity: item.quantity! - 1 }
+								: item
+						),
+				  }
+				: {
+						...state,
+						cart: state.cart.filter(
+							(item) => item.id !== action.payload
+						),
+				  };
 		}
 		case TYPES.REMOVE_ALL_FROM_CART: {
+			return {
+				...state,
+				cart: state.cart.filter((item) => item.id !== action.payload),
+			};
 		}
 		case TYPES.CLEAR_CART: {
 			return shoppingInitialState;
