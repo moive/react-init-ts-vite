@@ -1,5 +1,7 @@
-import { createContext, useEffect, useState } from "react";
+import { createContext, useEffect, useReducer, useState } from "react";
+import { TYPES } from "../actions/crudActions";
 import { helpHttp } from "../helpers/helpHttp";
+import { crudInitialState, crudReducer } from "../reducers/CrudReducer";
 import { TypeCrudApp } from "../utils/TypeCrudApp";
 import { TypeError } from "../utils/TypeError";
 
@@ -32,6 +34,9 @@ const CrudContext = createContext(initialCrudContext);
 
 const CrudProvider = ({ children }: Props) => {
 	const [db, setDb] = useState<TypeCrudApp[] | null>(null);
+	// const [state, dispatch] = useReducer(crudReducer, crudInitialState);
+	// const { db } = state;
+
 	const [dataToEdit, setDataToEdit] = useState<TypeCrudApp | null>(null);
 	const [loading, setLoading] = useState<boolean>(false);
 	const [error, setError] = useState<TypeError | null>(null);
@@ -46,9 +51,11 @@ const CrudProvider = ({ children }: Props) => {
 				console.log("res 2", res);
 				if (!res.err) {
 					setDb(res);
+					// dispatch({ type: TYPES.READ_ALL_DATA, payload: res });
 					setError(null);
 				} else {
 					setDb([]);
+					// dispatch({ type: TYPES.NO_DATA, payload: [] });
 					setError(res);
 				}
 			})
@@ -65,6 +72,7 @@ const CrudProvider = ({ children }: Props) => {
 		api.post(url, options).then((res) => {
 			if (!res.err) {
 				setDb([...db!, res]);
+				// dispatch({ type: TYPES.CREATE_DATA, payload: res });
 			} else {
 				setError(res);
 			}
@@ -84,6 +92,7 @@ const CrudProvider = ({ children }: Props) => {
 					el.id == item.id ? item : el
 				);
 				setDb(newData);
+				// dispatch({ type: TYPES.UPDATE_DATA, payload: data });
 			} else {
 				setError(res);
 			}
@@ -104,6 +113,7 @@ const CrudProvider = ({ children }: Props) => {
 						(item: TypeCrudApp) => item.id != id
 					);
 					setDb(newData);
+					// dispatch({ type: TYPES.DELETE_DATA, payload: id });
 				} else {
 					setError(res);
 				}
