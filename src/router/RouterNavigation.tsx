@@ -3,6 +3,7 @@ import { Navigate, Outlet, Route, Routes } from "react-router-dom";
 import App from "../App";
 import PrivateRoute from "../components/Private/PrivateRoute";
 import Contact from "../Views/Contact";
+import CounterRedux from "../Views/CounterRedux";
 import CrudApiJsonServer from "../Views/CrudApiJsonServer";
 import CrudApp from "../Views/CrudApp";
 import Dashboard from "../Views/Dashboard";
@@ -23,6 +24,7 @@ import User from "../Views/User";
 const RouterNavigation = () => {
 	return (
 		<Routes>
+			<Route path="/counter-redux" element={<CounterRedux />} />
 			<Route path="/reducers" element={<Reducers />} />
 			<Route path="/shopping-cart" element={<ShoppingReducers />} />
 			<Route path="/modals" element={<Modals />} />

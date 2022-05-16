@@ -1,8 +1,17 @@
-import { createStore } from "redux";
-import reducer from "./reducers";
+import { configureStore } from "@reduxjs/toolkit";
+import counterSlice from "./counterSlice";
 
-const store = createStore(reducer);
+const store = configureStore({
+	reducer: {
+		counter: counterSlice,
+	},
+});
 
-store.subscribe(() => console.log(store));
+// store.subscribe(() => console.log(store));
 
 export default store;
+
+// Infer the `RootState` and `AppDispatch` types from the store itself
+export type RootState = ReturnType<typeof store.getState>;
+// Inferred type: {posts: PostsState, comments: CommentsState, users: UsersState}
+export type AppDispatch = typeof store.dispatch;

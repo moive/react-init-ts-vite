@@ -1,17 +1,3 @@
-// COUNTER
-enum TYPESCOUNTER {
-	INCREMENT = "INCREMENT",
-	DECREMENT = "DECREMENT",
-	INCREMENT_5 = "INCREMENT_5",
-	DECREMENT_5 = "DECREMENT_5",
-	RESET = "INRESET",
+export interface CounterState {
+	value: number;
 }
-
-// SHOPPING CART
-
-// CRUD
-
-let TYPES = {
-	COUNTER: TYPESCOUNTER,
-};
-export { TYPES };
