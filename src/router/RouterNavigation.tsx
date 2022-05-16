@@ -2,6 +2,7 @@ import React from "react";
 import { Navigate, Outlet, Route, Routes } from "react-router-dom";
 import App from "../App";
 import PrivateRoute from "../components/Private/PrivateRoute";
+import ShoppingCartRedux from "../components/ShoppingCardRedux/ShoppingCartRedux";
 import Contact from "../Views/Contact";
 import CounterRedux from "../Views/CounterRedux";
 import CrudApiJsonServer from "../Views/CrudApiJsonServer";
@@ -24,6 +25,10 @@ import User from "../Views/User";
 const RouterNavigation = () => {
 	return (
 		<Routes>
+			<Route
+				path="/shopping-cart-redux"
+				element={<ShoppingCartRedux />}
+			/>
 			<Route path="/counter-redux" element={<CounterRedux />} />
 			<Route path="/reducers" element={<Reducers />} />
 			<Route path="/shopping-cart" element={<ShoppingReducers />} />
